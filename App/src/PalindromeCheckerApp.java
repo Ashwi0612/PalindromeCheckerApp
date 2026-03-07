@@ -1,48 +1,23 @@
-import java.util.*;
-
-interface PalindromeStrategy {
-    boolean check(String str);
-}
-
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String str) {
-
-        Stack<Character> stack = new Stack<>();
-
-        for (char c : str.toCharArray())
-            stack.push(c);
-
-        for (char c : str.toCharArray()) {
-
-            if (c != stack.pop())
-                return false;
-        }
-
-        return true;
-    }
-}
-
-class DequeStrategy implements PalindromeStrategy {
-
-    public boolean check(String str) {
-
-        Deque<Character> deque = new ArrayDeque<>();
-
-        for (char c : str.toCharArray())
-            deque.add(c);
-
-        while (deque.size() > 1) {
-
-            if (deque.removeFirst() != deque.removeLast())
-                return false;
-        }
-
-        return true;
-    }
-}
+import java.util.Scanner;
 
 public class PalindromeCheckerApp {
+
+    static boolean checkPalindrome(String str) {
+
+        int left = 0;
+        int right = str.length() - 1;
+
+        while (left < right) {
+
+            if (str.charAt(left) != str.charAt(right))
+                return false;
+
+            left++;
+            right--;
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
 
@@ -51,12 +26,18 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        PalindromeStrategy strategy = new StackStrategy();
+        long start = System.nanoTime();
 
-        if (strategy.check(input))
+        boolean result = checkPalindrome(input);
+
+        long end = System.nanoTime();
+
+        if (result)
             System.out.println("Palindrome");
         else
             System.out.println("Not Palindrome");
+
+        System.out.println("Execution Time: " + (end - start) + " ns");
 
         sc.close();
     }
