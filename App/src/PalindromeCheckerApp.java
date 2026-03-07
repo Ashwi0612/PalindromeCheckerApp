@@ -1,19 +1,41 @@
-import java.util.Scanner;
+import java.util.*;
 
-class PalindromeService {
+interface PalindromeStrategy {
+    boolean check(String str);
+}
 
-    public boolean checkPalindrome(String str) {
+class StackStrategy implements PalindromeStrategy {
 
-        int left = 0;
-        int right = str.length() - 1;
+    public boolean check(String str) {
 
-        while (left < right) {
+        Stack<Character> stack = new Stack<>();
 
-            if (str.charAt(left) != str.charAt(right))
+        for (char c : str.toCharArray())
+            stack.push(c);
+
+        for (char c : str.toCharArray()) {
+
+            if (c != stack.pop())
                 return false;
+        }
 
-            left++;
-            right--;
+        return true;
+    }
+}
+
+class DequeStrategy implements PalindromeStrategy {
+
+    public boolean check(String str) {
+
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (char c : str.toCharArray())
+            deque.add(c);
+
+        while (deque.size() > 1) {
+
+            if (deque.removeFirst() != deque.removeLast())
+                return false;
         }
 
         return true;
@@ -29,9 +51,9 @@ public class PalindromeCheckerApp {
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        PalindromeService service = new PalindromeService();
+        PalindromeStrategy strategy = new StackStrategy();
 
-        if (service.checkPalindrome(input))
+        if (strategy.check(input))
             System.out.println("Palindrome");
         else
             System.out.println("Not Palindrome");
