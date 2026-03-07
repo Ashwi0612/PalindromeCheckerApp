@@ -1,83 +1,30 @@
-class Node {
-    char data;
-    Node next;
+import java.util.Scanner;
 
-    Node(char data) {
-        this.data = data;
-        this.next = null;
-    }
-}
+public class PalindromeCheckerApp {
 
-public class UC8PalindromeCheckerApp {
+    static boolean isPalindrome(String str, int start, int end) {
 
-    static Node head = null;
+        if (start >= end)
+            return true;
 
-    static void insert(char data) {
+        if (str.charAt(start) != str.charAt(end))
+            return false;
 
-        Node newNode = new Node(data);
-
-        if (head == null) {
-            head = newNode;
-            return;
-        }
-
-        Node temp = head;
-        while (temp.next != null)
-            temp = temp.next;
-
-        temp.next = newNode;
-    }
-
-    static Node reverse(Node node) {
-
-        Node prev = null;
-        Node current = node;
-
-        while (current != null) {
-            Node next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-
-        return prev;
-    }
-
-    static boolean isPalindrome() {
-
-        Node slow = head;
-        Node fast = head;
-
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
-        }
-
-        Node secondHalf = reverse(slow);
-        Node firstHalf = head;
-
-        while (secondHalf != null) {
-
-            if (firstHalf.data != secondHalf.data)
-                return false;
-
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
-        }
-
-        return true;
+        return isPalindrome(str, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
 
-        String str = "RADAR";
+        Scanner sc = new Scanner(System.in);
 
-        for (char c : str.toCharArray())
-            insert(c);
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
 
-        if (isPalindrome())
+        if (isPalindrome(input, 0, input.length() - 1))
             System.out.println("Palindrome");
         else
-            System.out.println("Not a Palindrome");
+            System.out.println("Not Palindrome");
+
+        sc.close();
     }
 }
