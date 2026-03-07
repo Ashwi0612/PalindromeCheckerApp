@@ -1,27 +1,31 @@
+import java.util.Stack;
 import java.util.Scanner;
 
-public class UC4PalindroneCheckerApp {
+public class UC5PalindromeCheckerApp {
+
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter a string: ");
-        String input = sc.nextLine();
-        char[] characters = input.toCharArray();
-        int start = 0;
-        int end = characters.length - 1;
-        boolean isPalindrome = true;
-        while (start < end) {
-            if (characters[start] != characters[end]) {
-                isPalindrome = false;
-                break;
-            }
-            start++;
-            end--;
+        String str = sc.nextLine();
+
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : str.toCharArray()) {
+            stack.push(c);
         }
-        if (isPalindrome) {
-            System.out.println("The given string is a Palindrome.");
-        } else {
-            System.out.println("The given string is NOT a Palindrome.");
+
+        String reversed = "";
+
+        while (!stack.isEmpty()) {
+            reversed += stack.pop();
         }
+
+        if (str.equalsIgnoreCase(reversed))
+            System.out.println("Palindrome");
+        else
+            System.out.println("Not a Palindrome");
+
         sc.close();
     }
 }
