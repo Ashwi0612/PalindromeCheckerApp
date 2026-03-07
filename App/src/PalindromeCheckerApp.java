@@ -8,7 +8,7 @@ class Node {
     }
 }
 
-public class UC8PalindromeCheckerApp {
+public class PalindromeCheckerApp {
 
     static Node head = null;
 
