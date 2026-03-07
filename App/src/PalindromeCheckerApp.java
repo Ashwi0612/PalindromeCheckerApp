@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class UC7PalindromeCheckerApp {
+public class PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
