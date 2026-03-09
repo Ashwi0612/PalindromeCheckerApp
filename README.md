@@ -18,7 +18,3 @@ The project demonstrates multiple programming techniques and design concepts in 
 - Deque
 - String / Array
 - Call Stack
-
-## Example
-
-Input
